@@ -6,12 +6,15 @@ import java.util.List;
 public class ParkingLotSystem {
     List<Object> vehicle = new ArrayList<Object>();
 
+    //VARIABLE
+    int parkingLotCapacity = 5;
+
     //METHOD TO PARK THE VEHICLE
     public boolean isPark(Object vehicleToPark) throws ParkingLotSystemException {
         if (this.vehicle.isEmpty()) {
             vehicle.add(vehicleToPark);
             return true;
-        } else if (!this.vehicle.isEmpty() && (!this.vehicle.contains(vehicleToPark)) && (this.vehicle.size() < 5)) {
+        } else if (!this.vehicle.isEmpty() && (!this.vehicle.contains(vehicleToPark)) && (this.vehicle.size() < parkingLotCapacity)) {
             vehicle.add(vehicleToPark);
             return true;
         } else
