@@ -72,7 +72,7 @@ public class ParkingLotSystemTest {
     }
 
     @Test
-    public void givenAVehicleToPark_WhenParkingLotIsFull_ShouldReturnException() {
+    public void givenAVehicleToPark_WhenParkingLotIsFull_ShouldInformAuthorities() {
         boolean park = false;
         try {
             int index;
