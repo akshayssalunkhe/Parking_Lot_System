@@ -85,4 +85,27 @@ public class ParkingLotSystemTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenAVehicleToPark_WhenThereIsVacantSpaceInParkingLot_ShouldInformAuthorities() {
+        boolean park = false;
+        boolean unpark = false;
+        Object vehicleIndex = new Object();
+        Object[] vehicleIndexNo = new Object[20];
+        try {
+            int index;
+            for (index = 1; index <= 6; index++) {
+                vehicleIndex = new Object();
+                vehicleIndexNo[index] = vehicleIndex;
+                park = parkingLotSystem.isPark(vehicleIndex);
+            }
+            unpark = parkingLotSystem.unParkTheVehicle(vehicleIndexNo[2]);
+            unpark = parkingLotSystem.unParkTheVehicle(vehicleIndexNo[4]);
+            park = parkingLotSystem.isPark(vehicleIndex);
+
+            Assert.assertTrue(park);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
 }
