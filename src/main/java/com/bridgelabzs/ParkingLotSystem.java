@@ -1,6 +1,7 @@
 package com.bridgelabzs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ParkingLotSystem {
@@ -11,6 +12,11 @@ public class ParkingLotSystem {
     int parkingLotCapacity = 5;
     public boolean isParkingFull;
     ParkingLotInformationSubscriber parkingLotInformationSubscriber;
+
+    ParkingLotAttendant attendant = new ParkingLotAttendant();
+    HashMap<Integer, Object> lotMap;
+
+
 
     //CONSTRUCTOR
     public ParkingLotSystem() {
