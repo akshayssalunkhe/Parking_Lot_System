@@ -3,6 +3,8 @@ package com.bridgelabzs;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 public class ParkingLotSystemTest {
     ParkingLotSystem parkingLotSystem = new ParkingLotSystem();
 
@@ -103,6 +105,22 @@ public class ParkingLotSystemTest {
             unpark = parkingLotSystem.unParkTheVehicle(vehicleIndexNo[4]);
             park = parkingLotSystem.isPark(vehicleIndex);
 
+            Assert.assertTrue(park);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAVehicleToPark_WhenParkingLotOwnerGenerateNumber_AttendantShouldParkTheCar() {
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        HashMap parkingLotMap = null;
+        Integer key = parkingLotOwner.generateParkingSlotNumber();
+        ParkingLotAttendant parkingLotAttendant = new ParkingLotAttendant();
+        Object vehicle = new Object();
+        boolean park;
+        try {
+            park = parkingLotAttendant.isPark(key, vehicle);
             Assert.assertTrue(park);
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
