@@ -1,30 +1,17 @@
 package com.bridgelabzs;
 
-import java.util.HashMap;
-
-public class ParkingLotOwner implements IParkingLotObserver {
+public class ParkingLotOwner implements ParkingLotObserver {
 
     //FIELDS
-    boolean isParkingFull;
     ParkingLotSystem parkingLotSystem;
-    public HashMap<Integer, Object> parkingLotMap = new HashMap<Integer, Object>();
+    private boolean isParkingFull;
 
-    @Override
-    public void updateParkingLotStatus(boolean parkingLotStatus) {
+    public ParkingLotOwner() {
         parkingLotSystem = new ParkingLotSystem();
-        if (parkingLotStatus == true) {
-            this.isParkingFull = parkingLotStatus;
-            System.out.println("PARKING LOT OWNER:PARKING_LOT_IS_FULL");
-        } else
-            System.out.println("PARKING LOT OWNER:PARKING_LOT_IS_AVAILABLE");
-        parkingLotSystem.isParkingFull = false;
     }
 
-    //METHOD TO GENERATE PARKING SLOT KEY
-    public Integer generateParkingSlotNumber() {
-        for (int i = 1; i <= 5; i++)
-            if (this.parkingLotMap.get(i) == null)
-                return i;
-        return null;
+    @Override
+    public void updateParkingStatus(boolean parkingStatus) {
+        isParkingFull = parkingStatus;
     }
 }
