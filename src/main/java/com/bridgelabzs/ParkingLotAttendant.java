@@ -1,17 +1,16 @@
 package com.bridgelabzs;
 
-import java.util.HashMap;
-
 public class ParkingLotAttendant {
 
     ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
-    HashMap<Integer, Object> parkingLotMap = new HashMap<Integer, Object>();
-
     public Integer PARKING_SLOT_SIZE = 5;
-//    public Integer ParkingSlotNumber = parkingLotOwner.generateParkingSlotNumber();
-//    private Object vehicle;
     private boolean isParkingFull;
-    private IParkingLotInFormation parkingLotInformationSubscriber;
+    public IParkingLotInFormation parkingLotInformationSubscriber;
+
+    public ParkingLotAttendant() {
+        Driver driver;
+        parkingLotInformationSubscriber = new ParkingLotInformationSubscriber();
+    }
 
     public Integer getParkingSlot() {
         return this.PARKING_SLOT_SIZE;
@@ -19,11 +18,11 @@ public class ParkingLotAttendant {
 
     //METHOD TO PARK THE VEHICLE
     public boolean isPark(Integer parkingSlotNumber, Object vehicleToPark) throws ParkingLotSystemException {
-        if (parkingLotMap.isEmpty()) {
-            parkingLotMap.put(parkingSlotNumber, vehicleToPark);
+        if (parkingLotOwner.parkingLotMap.isEmpty()) {
+            parkingLotOwner.parkingLotMap.put(parkingSlotNumber, vehicleToPark);
             return true;
-        } else if (!this.parkingLotMap.isEmpty() && (!this.parkingLotMap.containsKey(parkingSlotNumber)) && (this.parkingLotMap.size() < getParkingSlot())) {
-            parkingLotMap.put(parkingSlotNumber, vehicleToPark);
+        } else if (!parkingLotOwner.parkingLotMap.isEmpty() && (!parkingLotOwner.parkingLotMap.containsKey(parkingSlotNumber)) && (parkingLotOwner.parkingLotMap.size() < getParkingSlot())) {
+            parkingLotOwner.parkingLotMap.put(parkingSlotNumber, vehicleToPark);
             return true;
         } else isParkingFull = true;
         parkingLotInformationSubscriber.notifyParkingStatus(true);
@@ -32,8 +31,8 @@ public class ParkingLotAttendant {
 
     //METHOD TO UNPARK THE GIVEN VEHICLE
     public boolean unParkTheVehicle(Integer key) throws ParkingLotSystemException {
-        if (parkingLotMap.containsKey(key)) {
-            parkingLotMap.remove(key);
+        if (parkingLotOwner.parkingLotMap.containsKey(key)) {
+            parkingLotOwner.parkingLotMap.remove(key);
             parkingLotInformationSubscriber.notifyParkingStatus(false);
             return true;
         }

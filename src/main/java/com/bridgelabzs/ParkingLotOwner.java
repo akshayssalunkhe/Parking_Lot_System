@@ -7,7 +7,7 @@ public class ParkingLotOwner implements IParkingLotObserver {
     //FIELDS
     boolean isParkingFull;
     ParkingLotSystem parkingLotSystem;
-    private HashMap<Integer, Object> parkingLotMap = new HashMap<Integer, Object>();
+    public HashMap<Integer, Object> parkingLotMap = new HashMap<Integer, Object>();
 
     @Override
     public void updateParkingLotStatus(boolean parkingLotStatus) {
@@ -20,10 +20,7 @@ public class ParkingLotOwner implements IParkingLotObserver {
         parkingLotSystem.isParkingFull = false;
     }
 
-//    public void getUpdatedMap(HashMap<Integer, Object> parkingLotMap) {
-//        this.parkingLotMap = parkingLotMap;
-//    }
-
+    //METHOD TO GENERATE PARKING SLOT KEY
     public Integer generateParkingSlotNumber() {
         for (int i = 1; i <= 5; i++)
             if (this.parkingLotMap.get(i) == null)
