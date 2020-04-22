@@ -6,6 +6,7 @@ public class Vehicle {
     private String parkingDateAndTime;
     private String vehicleId;
 
+    //CONSTRUCTOR
     public Vehicle(String vehicleId, DriverType driverType) {
         parkingDateTime = new ParkingDateTime();
         this.vehicleId = vehicleId;
@@ -13,13 +14,16 @@ public class Vehicle {
         this.driverType = driverType;
     }
 
+    //METHOD TO RETURN PARKING TIME
     public String getParkingDateAndTime() {
         return parkingDateAndTime;
     }
 
+    //METHOD TO GET VEHICLE ID
     public String getVehicleId() {
         return vehicleId;
     }
 
+    //ENUM
     public enum DriverType {HANDICAP, NORMAL}
 }
