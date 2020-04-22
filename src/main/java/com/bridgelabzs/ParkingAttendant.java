@@ -14,7 +14,7 @@ public class ParkingAttendant {
         if (parkingLotSystem.isVehicleParked(vehicle)) {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.VEHICLE_ALREADY_PARKED, "Vehicle is already parked");
         }
-        String key = getParkingPosition();
+        String key = (vehicle.vehicleSize == Vehicle.VehicleSize.LARGE) ? getSlotPositionWithLessNumberOfVehicleParked() : getParkingPosition();
         parkingLotSystem.vehicleMap.put(key, vehicle);
     }
 
@@ -50,5 +50,16 @@ public class ParkingAttendant {
             break;
         }
         return position;
+    }
+
+    //METHOD TO PARKING SLOT FOR LARGE SIZE VEHICLE
+    public String getSlotPositionWithLessNumberOfVehicleParked() throws ParkingLotSystemException {
+        int count = 0;
+        while (count++ < parkingLotSystem.NUMBER_OF_PARKING_LOTS) {
+            if (parkingLotSystem.getNumberOfVehiclesParked(count) < (parkingLotSystem.SIZE_OF_PARKING_LOT - 1)) {
+                return "A" + count + " " + (parkingLotSystem.getNumberOfVehiclesParked(count) + 1);
+            }
+        }
+        throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.PARKING_LOT_IS_FULL, "Large Vehicles Can't Be Parked");
     }
 }
