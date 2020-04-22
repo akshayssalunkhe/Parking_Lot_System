@@ -17,7 +17,7 @@ public class ParkingLotSystemTest {
 
     @Before
     public void setUp() {
-        parkingLotSystem = new ParkingLotSystem(3, 3);
+        parkingLotSystem = new ParkingLotSystem(2, 3);
         parkingLotOwner = new ParkingLotOwner();
         airportSecurity = new AirportSecurity();
     }
@@ -25,7 +25,7 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicleToPark_WhenParkedInParkingLot_ShouldReturnTrue() {
         try {
-            vehicle = new Vehicle("1");
+            vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL);
             parkingLotSystem.park(vehicle);
             boolean isPark = parkingLotSystem.isVehicleParked(vehicle);
             Assert.assertTrue(isPark);
@@ -38,9 +38,9 @@ public class ParkingLotSystemTest {
     public void givenAVehicle_WhenAlreadyParkedInParkingLot_ShouldThrowException() {
         parkingLotSystem = new ParkingLotSystem(3, 3);
         try {
-            parkingLotSystem.park(new Vehicle("1"));
-            parkingLotSystem.park(new Vehicle("2"));
-            parkingLotSystem.park(new Vehicle("3"));
+            parkingLotSystem.park(new Vehicle("1", Vehicle.DriverType.NORMAL));
+            parkingLotSystem.park(new Vehicle("2", Vehicle.DriverType.NORMAL));
+            parkingLotSystem.park(new Vehicle("3", Vehicle.DriverType.NORMAL));
         } catch (ParkingLotSystemException e) {
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_LOT_IS_FULL, e.type);
         }
@@ -48,7 +48,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenNotParkedInParkingLot_ShouldReturnFalse() {
-        vehicle = new Vehicle("1");
+        vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL);
         boolean isPark = parkingLotSystem.isVehicleParked(vehicle);
         Assert.assertFalse(isPark);
     }
@@ -56,7 +56,7 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicle_WhenUnParkedFromParkingLot_ShouldReturnTrue() {
         try {
-            Vehicle vehicleOne = new Vehicle("1");
+            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.unPark(vehicleOne);
             boolean isUnPark = parkingLotSystem.isVehicleUnPark(vehicleOne);
@@ -69,8 +69,8 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicle_WhenNoVehicleUnParked_ShouldThrowException() {
         try {
-            Vehicle vehicleOne = new Vehicle("1");
-            Vehicle vehicleTwo = new Vehicle("2");
+            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
+            Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL);
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.isVehicleUnPark(vehicleOne);
             parkingLotSystem.unPark(vehicleTwo);
@@ -82,7 +82,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenNotUnParked_ShouldReturnFalse() {
-        Vehicle vehicleOne = new Vehicle("1");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
         try {
             parkingLotSystem.park(vehicleOne);
             boolean isUnPark = parkingLotSystem.isVehicleUnPark(vehicleOne);
@@ -94,9 +94,9 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenThereIsSpace1inParkingLot_ShouldAllowToPark() {
-        Vehicle vehicleOne = new Vehicle("1");
-        Vehicle vehicleTwo = new Vehicle("2");
-        Vehicle vehicleThree = new Vehicle("3");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL);
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -111,7 +111,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenAlreadyParked_ShouldThrowException() {
-        Vehicle vehicleOne = new Vehicle("1");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleOne);
@@ -122,7 +122,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenAskForPosition_ShouldReturnPosition() {
-        Vehicle vehicleOne = new Vehicle("1");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
         try {
             parkingLotSystem.park(vehicleOne);
             String vehiclePosition = parkingLotSystem.getVehiclePosition(vehicleOne);
@@ -134,7 +134,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenToPark_ShouldReturnParkingDateTime() {
-        vehicle = new Vehicle("1");
+        vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL);
         try {
             parkingLotSystem.park(vehicle);
             String dateTime = formatter.format(date);
@@ -147,8 +147,8 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicles_WhenParkedInParkingLot_ShouldEvenlyDistributeInParkingLot() {
-        Vehicle vehicleOne = new Vehicle("1");
-        Vehicle vehicleTwo = new Vehicle("2");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -156,6 +156,23 @@ public class ParkingLotSystemTest {
             String vehicle2Position = parkingLotSystem.getVehiclePosition(vehicleTwo);
             Assert.assertEquals("A1 1", vehicle1Position);
             Assert.assertEquals("A2 1", vehicle2Position);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAVehicle_WhenDriverIsHandicap_ShouldParkVehicleAtNearestLotPosition() {
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL);
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.HANDICAP);
+        try {
+            parkingLotSystem.park(vehicleOne);
+            parkingLotSystem.park(vehicleTwo);
+            parkingLotSystem.unPark(vehicleOne);
+            parkingLotSystem.park(vehicleThree);
+            String vehicle1Position = parkingLotSystem.getVehiclePosition(vehicleThree);
+            Assert.assertEquals("A1 1", vehicle1Position);
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
         }
