@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLotSystem {
-    int SIZE_OF_LOT;
+    int NUMBER_OF_PARKING_LOTS;
+    int SIZE_OF_PARKING_LOT;
     ParkingLotManager parkingLotManager;
     ParkingLotOwner parkingLotOwner;
     AirportSecurity airportSecurity;
@@ -12,8 +13,9 @@ public class ParkingLotSystem {
     Map<String, Vehicle> vehicleMap;
 
     //CONSTRUCTOR
-    public ParkingLotSystem(int SIZE_OF_LOT) {
-        this.SIZE_OF_LOT = SIZE_OF_LOT;
+    public ParkingLotSystem(int NUMBER_OF_PARKING_LOTS, int SIZE_OF_PARKING_LOT) {
+        this.SIZE_OF_PARKING_LOT = SIZE_OF_PARKING_LOT;
+        this.NUMBER_OF_PARKING_LOTS = NUMBER_OF_PARKING_LOTS;
         parkingLotManager = new ParkingLotManager();
         parkingLotOwner = new ParkingLotOwner();
         airportSecurity = new AirportSecurity();
@@ -37,7 +39,7 @@ public class ParkingLotSystem {
 
     //METHOD TO CHECK LOT IS FULL OR NOT
     public boolean isLotFull() {
-        return vehicleMap.size() == SIZE_OF_LOT;
+        return vehicleMap.size() == SIZE_OF_PARKING_LOT * NUMBER_OF_PARKING_LOTS;
     }
 
     //METHOD TO UNPARK VEHICLE
