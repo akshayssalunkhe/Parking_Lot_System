@@ -1,17 +1,19 @@
 package com.bridgelabzs;
 
 public class Vehicle {
+    VehicleSize vehicleSize;
     DriverType driverType;
     ParkingDateTime parkingDateTime;
     private String parkingDateAndTime;
     private String vehicleId;
 
     //CONSTRUCTOR
-    public Vehicle(String vehicleId, DriverType driverType) {
+    public Vehicle(String vehicleId, DriverType driverType, VehicleSize vehicleSize) {
         parkingDateTime = new ParkingDateTime();
         this.vehicleId = vehicleId;
         parkingDateAndTime = parkingDateTime.getDateTime();
         this.driverType = driverType;
+        this.vehicleSize = vehicleSize;
     }
 
     //METHOD TO RETURN PARKING TIME
@@ -26,4 +28,6 @@ public class Vehicle {
 
     //ENUM
     public enum DriverType {HANDICAP, NORMAL}
+
+    public enum VehicleSize {LARGE, SMALL}
 }
