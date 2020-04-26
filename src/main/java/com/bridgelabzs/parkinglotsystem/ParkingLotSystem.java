@@ -1,4 +1,4 @@
-package com.bridgelabzs;
+package com.bridgelabzs.parkinglotsystem;
 
 import com.bridgelabzs.observerpattern.AirportSecurity;
 import com.bridgelabzs.observerpattern.ParkingLotManager;

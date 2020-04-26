@@ -1,4 +1,4 @@
-package com.bridgelabzs;
+package com.bridgelabzs.observerpattern;
 
 public interface ParkingLotInformer {
     void addObserver(ParkingLotObserver lotObserver);

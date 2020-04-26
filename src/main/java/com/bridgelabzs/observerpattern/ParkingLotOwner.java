@@ -1,4 +1,6 @@
-package com.bridgelabzs;
+package com.bridgelabzs.observerpattern;
+
+import com.bridgelabzs.parkinglotsystem.ParkingLotSystem;
 
 public class ParkingLotOwner implements ParkingLotObserver {
 

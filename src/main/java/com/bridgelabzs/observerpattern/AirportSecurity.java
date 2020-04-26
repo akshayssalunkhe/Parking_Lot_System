@@ -1,4 +1,4 @@
-package com.bridgelabzs;
+package com.bridgelabzs.observerpattern;
 
 public class AirportSecurity implements ParkingLotObserver {
     private Boolean isParkingFull;

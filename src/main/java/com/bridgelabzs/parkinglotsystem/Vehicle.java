@@ -1,4 +1,4 @@
-package com.bridgelabzs;
+package com.bridgelabzs.parkinglotsystem;
 
 import java.time.LocalDateTime;
 
@@ -23,11 +23,6 @@ public class Vehicle {
         this.vehicleColour = vehicleColour;
         this.vehicleModel = vehicleModel;
         this.attendantName = attendantName;
-    }
-
-    //METHOD TO GET VEHICLE ID
-    public String getVehicleId() {
-        return vehicleId;
     }
 
     //ENUM
