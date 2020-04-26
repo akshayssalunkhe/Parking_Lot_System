@@ -1,5 +1,7 @@
 package com.bridgelabzs;
 
+import com.bridgelabzs.parkinglotexception.ParkingLotSystemException;
+
 public class ParkingAttendant {
     ParkingLotSystem parkingLotSystem;
     private int lot;
