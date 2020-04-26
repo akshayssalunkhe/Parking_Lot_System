@@ -1,4 +1,4 @@
-package com.bridgelabzs;
+package com.bridgelabzs.parkinglotexception;
 
 public class ParkingLotSystemException extends Exception {
 

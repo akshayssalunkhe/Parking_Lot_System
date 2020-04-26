@@ -1,4 +1,4 @@
-package com.bridgelabzs;
+package com.bridgelabzs.observerpattern;
 
 import java.util.ArrayList;
 import java.util.List;

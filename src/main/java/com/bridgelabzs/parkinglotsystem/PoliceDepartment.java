@@ -1,4 +1,4 @@
-package com.bridgelabzs;
+package com.bridgelabzs.parkinglotsystem;
 
 import java.time.LocalDateTime;
 import java.util.Map;

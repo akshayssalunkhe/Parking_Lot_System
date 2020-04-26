@@ -1,5 +1,11 @@
 package com.bridgelabzs;
 
+import com.bridgelabzs.observerpattern.AirportSecurity;
+import com.bridgelabzs.observerpattern.ParkingLotOwner;
+import com.bridgelabzs.parkinglotexception.ParkingLotSystemException;
+import com.bridgelabzs.parkinglotsystem.ParkingLotSystem;
+import com.bridgelabzs.parkinglotsystem.PoliceDepartment;
+import com.bridgelabzs.parkinglotsystem.Vehicle;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,10 +60,16 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenNotParkedInParkingLot_ShouldReturnFalse() {
-        vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
                 Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Roy");
-        boolean isPark = parkingLotSystem.isVehicleParked(vehicle);
-        Assert.assertFalse(isPark);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Roy");
+        try {
+            parkingLotSystem.park(vehicleOne);
+            parkingLotSystem.unPark(vehicleTwo);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -132,6 +144,37 @@ public class ParkingLotSystemTest {
             parkingLotSystem.park(vehicleOne);
         } catch (ParkingLotSystemException e) {
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.VEHICLE_ALREADY_PARKED, e.type);
+        }
+    }
+
+    @Test
+    public void givenAVehicle_WhenParkingLotIsFull_ShouldAllowToPark() {
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Roy");
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Roy");
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Joy");
+        Vehicle vehicleFour = new Vehicle("4", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Joy");
+        Vehicle vehicleFive = new Vehicle("5", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Joy");
+        Vehicle vehicleSix = new Vehicle("6", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Joy");
+        Vehicle vehicleSeven = new Vehicle("7", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "Joy");
+        try {
+            parkingLotSystem.park(vehicleOne);
+            parkingLotSystem.park(vehicleTwo);
+            parkingLotSystem.park(vehicleThree);
+            parkingLotSystem.park(vehicleFour);
+            parkingLotSystem.park(vehicleFive);
+            parkingLotSystem.park(vehicleSix);
+            parkingLotSystem.park(vehicleSeven);
+            boolean isPark = parkingLotSystem.isVehicleParked(vehicleSeven);
+            Assert.assertTrue(isPark);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
         }
     }
 
